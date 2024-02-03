@@ -56,7 +56,13 @@ def extract_address(soup):
 
 def extract_description(soup):
     description_element = soup.find('div', class_="MuiBox-root css-0")
-    return description_element.text if description_element else None
+    
+    if description_element:
+        description_text = description_element.text.rstrip()
+        return description_text if len(description_text.split()) > 0 else None
+    else:
+        return None
+
 
 # def extract_rating(soup):
 #     rating_element = soup.find('p', class_='MuiTypography-root MuiTypography-body1 css-2g7rhg')
