@@ -33,7 +33,7 @@ def process_urls(urls):
                    'workshop_details': pd.DataFrame()}
 
         for url in validated_urls:
-            if "/s/" in url and "/team" not in url and "/videos" not in url:
+            if "/s/" in url and "/team" not in url and "/videos" not in url and "/preise" not in url:
                 print(f"Scraping Pole Studio Data from {url}...")
                 pole_studio_data = scrape_pole_studio(url)
                 results['pole_studio_data'] = pd.concat([results['pole_studio_data'], pole_studio_data], ignore_index=True)

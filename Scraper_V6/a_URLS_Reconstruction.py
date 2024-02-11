@@ -52,7 +52,7 @@ def reconstruct_urls_and_extract_buttons(url):
             anchor_elements = item.find_all('a')
             for anchor in anchor_elements:
                 text = anchor.text
-                if text not in ['Videos', 'Klassen']:  # Skip 'Videos' and 'Klassen'
+                if text not in ['Videos', 'Klassen', "Team", "Preise", ]:  # Skip 'Videos' and 'Klassen'
                     link_text.append(text)
                     try:
                         reconstructed_url = construct_url(url, text, button_url_mapping, dynamic_part)
