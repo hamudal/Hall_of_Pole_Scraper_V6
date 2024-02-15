@@ -40,7 +40,7 @@ def scrape_workshop_details(url):
         'Description': [description],
         'Studio Name': [studio_name],
         'Location': [location],
-        'Level': [level],
+        'Art': [level],
         'Date': [date],
         'URL_E': [url],
         'Time': [time]
