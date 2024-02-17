@@ -57,7 +57,7 @@ def process_urls(urls):
         print("\nProcessing completed.\n-------------------------------- \n")
         return results
     except Exception as e:
-        print(f"An error occurred during processing: {e}")
+        print(f"An error occurred during processing: {e}\n")
         return None
 
 # # Test code (if needed)
