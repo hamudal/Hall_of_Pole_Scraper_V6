@@ -27,11 +27,11 @@ def reconstruct_urls_and_extract_buttons(url):
         url (str): The URL of the webpage to scrape.
 
     Returns:
-        tuple: A list of link texts and a dictionary of reconstructed URLs.
+        tuple: A list of link texts, a dictionary of reconstructed URLs, and error messages.
     """
     content = get_response_content(url)
     if content is None:
-        return [], {}
+        return [], {}, f"HTTP request error: Unable to retrieve content from {url}"
 
     soup = BeautifulSoup(content, 'html.parser')
     overview_buttons = soup.find_all('div', class_="MuiStack-root css-sgccrm")
@@ -46,6 +46,7 @@ def reconstruct_urls_and_extract_buttons(url):
     dynamic_part = url.split("/")[-1]
     link_text = []
     reconstructed_urls = {}
+    errors = []
 
     if overview_buttons:
         for item in overview_buttons:
@@ -57,11 +58,11 @@ def reconstruct_urls_and_extract_buttons(url):
                     try:
                         reconstructed_url = construct_url(url, text, button_url_mapping, dynamic_part)
                     except ValueError as ve:
-                        print(f"Error reconstructing URL for '{text}': {ve}")
+                        errors.append(f"Error reconstructing URL for '{text}': {ve}")
                         continue
                     reconstructed_urls[text] = reconstructed_url
 
-    return link_text, reconstructed_urls
+    return link_text, reconstructed_urls, errors
 
 def construct_url(base_url, button_text, mapping, dynamic_part):
     """
@@ -88,5 +89,5 @@ def construct_url(base_url, button_text, mapping, dynamic_part):
 
 # # Example call of the function
 # url = "https://www.eversports.de/s/poda-studio"
-# link_text, reconstructed_urls = reconstruct_urls_and_extract_buttons(url)
-# print(link_text, reconstructed_urls)
+# link_text, reconstructed_urls, errors = reconstruct_urls_and_extract_buttons(url)
+# print(link_text, reconstructed_urls, errors)
